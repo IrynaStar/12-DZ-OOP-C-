@@ -1,0 +1,123 @@
+#include <iostream>
+using namespace std;
+
+
+class Person {
+protected:
+	string name;
+	string surname;
+public:
+
+	void SetName(string name) {
+		this->name = name;
+	}
+	void SetSurname(string surname) {
+		this->surname = surname;
+	}
+	string GetName() const {
+		return name;
+	}
+	string GetSurname() const {
+		return surname;
+	}
+
+	void Print() {
+		cout << "Имя студента: " << name << "\n";
+		cout << "Фамилия студента: " << surname << "\n\n";
+	}
+
+	//конструкторы
+	Person() {
+		//cout << "Имя, фамилия  студента: ";
+		SetName("Андрей\n");
+		SetSurname("Андрейчук\n");
+	}
+	
+	Person(string name, string surname) {
+		cout << "Имя студента: " << name;
+		SetName(name);
+		cout << "\nФамилия: " << surname;
+		SetSurname(surname);
+	}
+
+	~Person() {
+		//cout << "Person D-TOR\n";
+	}
+};
+
+class Student : public Person {
+private:
+	string zachetka; // добавляю есть ли зачетка (тоесть доступ к экзамену)
+public:
+	Student() : Person() {
+		//cout << "Student C-TOR 0 params\n";
+	}
+
+	Student(string name, string surname) : Person(name, surname) {
+		cout << "C-TOR 2 params\n";
+	}
+
+	Student(string name, string surname, string zachetka) : Person(name, surname) {
+		//cout << "C-TOR 3 params\n";
+		cout << "Имя: " << name << "\nФамилия: " << surname << "\nДоступ (зачетка): " << zachetka << "\n\n";
+	}
+	~Student() {
+		//cout << "D-TOR\n";
+	}
+
+	
+	/*
+	void SetZachetka(string z) {
+		zachetka = z;
+	}
+
+	string GetZachetka() {
+		return zachetka;
+	}
+	*/
+	void SdatExamen() {} 
+	void ProspatParu() { cout << "Sleep...\n"; } 
+};
+
+class Aspirant : public Student {
+private:
+	string temaKadidatskoy;
+public:
+	Aspirant() : Student() {
+		//cout << "C-TOR 0 params\n";
+	}
+
+	Aspirant(string name, string surname, string zachetka) : Student(name, surname, zachetka) {
+		//cout << "C-TOR 3 params\n";
+		cout << "Имя: " << name << "\nФамилия: " << surname << "\nДоступ (зачетка): " << zachetka << "\n\n";
+	}
+
+	Aspirant(string name, string surname, string zachetka, string temaKadidatskoy) : Student(name, surname, zachetka) {
+		//cout << "C-TOR 4 params\n";
+		cout << "Имя: " << name << "\nФамилия: " << surname << "\nДоступ (зачетка): " << zachetka << "\nТема кандидатской: " << temaKadidatskoy << "\n\n";
+	}
+
+	~Aspirant() {
+		//cout << "D-TOR\n";
+	}
+
+};
+
+
+int main()
+{
+	setlocale(0, "");
+	Student s("Антон", "Антонюк", "Есть");
+	
+	Aspirant a("Игорь", "Игорчук", "Есть", "Предмет преступления");
+	
+	Person p("Иван", "Иванов");
+	//Person p;
+	//p.name = "Petro";
+	//p.surname = "Petrenko";
+	//p.Print();
+
+	//Student i;
+	//i.SetZachetka("Доступ есть");
+	//cout << "Зачетка: " << i.GetZachetka();
+}
